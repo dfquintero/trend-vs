@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        
+    <script src="/socket.io/socket.io.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=false">
 
@@ -37,12 +39,32 @@
         </div>
         <div data-role="panel" id="panell">
             panel L
+            <section id="madridrs">
+                <h2>Hablan de Madrid</h2>
+                <ul></ul>
+            </section>
         </div>
         <div data-role="panel" id="panelr">
             panel R
         </div>
     </div>
+        <script>
+      var socket = io.connect('http://futbol-twit.herokuapp.com');
+      jQuery(function ($) { 
+        var madridrsList = $('#madridrs ul');
 
+        socket.on('madridr', function (data) {
+          $('<img />')
+            .attr('src', data.avatar)
+            .load(function(){
+              madridrsList
+                .prepend($('<li>')
+                .prepend($('<p>').text(data.user + ': ' + data.text))
+                .prepend($(this)));
+            });
+        });
+      });
+    </script>
 
 
 
