@@ -40,24 +40,39 @@
         <div data-role="panel" id="panell">
             panel L
             <section id="madridrs">
-                <h2>Hablan de Madrid</h2>
+                <h2>Real Madrid</h2>
                 <ul></ul>
             </section>
         </div>
         <div data-role="panel" id="panelr">
             panel R
+            <section id="barcelonars">
+                <h2>Barcelona</h2>
+                <ul></ul>
+            </section>
         </div>
     </div>
         <script>
       var socket = io.connect('http://futbol-twit.herokuapp.com');
       jQuery(function ($) { 
-        var madridrsList = $('#madridrs ul');
+        var madridrsList = $('#madridrs ul'),
+            barcelonarsList = $('#barcelonars ul');
 
         socket.on('madridr', function (data) {
           $('<img />')
             .attr('src', data.avatar)
             .load(function(){
               madridrsList
+                .prepend($('<li>')
+                .prepend($('<p>').text(data.user + ': ' + data.text))
+                .prepend($(this)));
+            });
+        });
+        socket.on('barcelonar', function (data) {
+          $('<img />')
+            .attr('src', data.avatar)
+            .load(function(){
+              barcelonarsList
                 .prepend($('<li>')
                 .prepend($('<p>').text(data.user + ': ' + data.text))
                 .prepend($(this)));
