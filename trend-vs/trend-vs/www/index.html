@@ -20,15 +20,17 @@
 
     <!-- trendvs references -->
     <link href="css/index.css" rel="stylesheet" />
+
+
 </head>
-<body>
-    <div data-role="page">
-        <div data-role="header" data-position="fixed">
+<body style="background-color:black">
+    <div data-role="page" style="background-color:transparent" data-theme="b">
+        <div data-role="header">
             <h1>
                 aqui va el banner
             </h1>
         </div>
-        <div class="ui-content">
+        <div class="ui-content" style="background-color:transparent">
             <ul data-role="listview">
                 <!--asi es el contenido que se debe cambiar-->
                 <li>
@@ -38,32 +40,53 @@
                         <p>data.text</p>
                     </a>
                 </li>
-
-            </ul>            
+            </ul>
+            <br />
+            <br />
+            <br />
+            <br />
+            <div class="ui-grid-a" style="text-align:center">
+                <div class="ui-block-a"><h1>50%</h1></div>
+                <div class="ui-block-b"><h1>50%</h1></div>
+            </div>
+            <div class="ui-grid-solo">
+                <div class="ui-block-a">
+                    <form class="full-width-slider">
+                        <label class="ui-hidden-accessible" for="slider-12">Slider:</label>
+                        <input name="slider-12" id="slider-12" type="range" min="0" max="100" value="50" data-highlight="true">
+                    </form>
+                </div>
+            </div>        
         </div>
         <div data-role="footer" style="overflow:hidden" data-position="fixed">
             <div data-role="navbar">
-                <ul class="ui-nodisc-icon ui-alt-icon">
+                <ul class="ui-nodisc-icon">
                     <li><a href="#panell" data-rel="panel" data-icon="carat-r">#HalaMadrid</a></li>
-                    <li><a class="ui-btn-active" href="#" data-icon="action">Tweet !</a></li>
+                    <li><a class="ui-btn-active ui-alt-icon" href="#poptweet" data-icon="action" data-theme="a" data-rel="popup" data-position-to="window" data-transition="slideup">Tweet !</a></li>
                     <li><a href="#panelr" data-rel="panel" data-icon="carat-l">#ViscaBarza</a></li>
                 </ul>
             </div><!-- /navbar -->
         </div>
-        <div data-role="panel" id="panell" style="background-image:url(images/images/bg.png); background-position:left; background-size:cover" data-display="reveal" data-position="left">
+        <div data-role="panel" id="panell" style="background-image:url(images/bg.png); background-position:right; background-size:cover" data-display="reveal" data-position="left">
             <section id="madridrs">
                 <h2>#HalaMadrid</h2>
                 <ul data-role="listview"></ul>
             </section>
             <button class="ui-btn" id="btn_1" style="background-color:limegreen; color:black; text-shadow:none">More Tweets!</button>
         </div>
-        <div data-role="panel" id="panelr" style="background-image:url(images/images/bg.png); background-position:right; background-size:cover; background-color:transparent" data-display="reveal" data-position="right">
+        <div data-role="panel" id="panelr" style="background-image:url(images/bg.png); background-position:left; background-size:cover; background-color:red" data-display="reveal" data-position="right">
             <section id="barcelonars">
                 <h2>Barcelona</h2>
                 <ul></ul>
             </section>
             <button class="ui-btn" id="btn_2" style="background-color:limegreen; color:black; text-shadow:none">More Tweets!</button>
         </div>
+        <div id="poptweet" data-role="popup" data-overlay-theme="b" data-dismissible="false">
+            <a class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-left" href="#" data-rel="back">Close</a>
+            <p>ola k ase soy un tweet ¿proximamente?</p>
+            
+        </div>
+
     </div>
 
     <script>
