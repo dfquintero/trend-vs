@@ -46,14 +46,14 @@
             <br />
             <br />
             <div class="ui-grid-a" style="text-align:center">
-                <div class="ui-block-a"><h1>50%</h1></div>
-                <div class="ui-block-b"><h1>50%</h1></div>
+                <div class="ui-block-a" id="madrid"><h1>50%</h1></div>
+                <div class="ui-block-b" id="barza"><h1>50%</h1></div>
             </div>
             <div class="ui-grid-solo">
                 <div class="ui-block-a">
                     <form class="full-width-slider">
                         <label class="ui-hidden-accessible" for="slider-12">Slider:</label>
-                        <input name="slider-12" id="slider-12" type="range" min="0" max="100" value="50" data-highlight="true">
+                        <input name="slider-12" id="slider-12" type="range" min="0" max="100" value="40" data-highlight="true">
                     </form>
                 </div>
             </div>        
@@ -92,28 +92,64 @@
     <script>
         var socket = io.connect('http://futbol-twit.herokuapp.com');
         jQuery(function ($) {
-            var madridrsList = $('#madridrs ul'),
+            var barzacont = 0,
+                madriscont = 0,
+                madridrsList = $('#madridrs ul'),
                 barcelonarsList = $('#barcelonars ul');
 
+
+           
+                $("#btn_1").click(function(event) {
+                    $(madridrsList).empty();
+                    madriscont = 0;
+                });
+                $("#btn_2").click(function(event) {
+                    $(barcelonarsList).empty();
+                    barzacont = 0;
+                });
+           
+                socket.on('percentages', function (data) {
+                          //madridCounter
+                          //  .css("width", data.madrid + '%');
+                          //madridCounterPercentage
+                           // .text(Math.round(data.madrid * 10) / 10 + '%');
+                          //barcelonaCounter
+                          //  .css("width", data.barcelona + '%');
+                          //barcelonaCounterPercentage
+                            //.text(Math.round(data.barcelona * 10) / 10 + '%');
+                            $('#madrid h1').text(Math.round(data.madrid * 10) / 10 + '%')
+                            $('#barza h1').text(Math.round(data.barcelona * 10) / 10 + '%')
+                            $('#slider-12').val(Math.round(data.madrid * 10) / 10);
+                            $('#slider-12').slider('refresh');
+                            //alert(Math.round(data.madrid * 10) / 10)
+                });
+           
+
             socket.on('madridr', function (data) {
-                $('<img />')
-                  .attr('src', data.avatar)
-                  .load(function(){
-                      madridrsList
-                      .prepend($('<li>') 
-                      .prepend($('<p style="text-wrap:normal">').text(data.user + ': ' + data.text))
-                      .prepend($(this)));
-                  });
+                if (madriscont < 5) {
+                    madriscont++
+                    $('<img />')
+                      .attr('src', data.avatar)
+                      .load(function(){
+                          madridrsList
+                          .prepend($('<li>') 
+                          .prepend($('<p style="text-wrap:normal">').text(data.user + ': ' + data.text))
+                          .prepend($(this)));
+                      });
+                }  
             });
             socket.on('barcelonar', function (data) {
-                $('<img />')
-                  .attr('src', data.avatar)
-                  .load(function(){
-                      barcelonarsList
-                        .prepend($('<li>')
-                        .prepend($('<p>').text(data.user + ': ' + data.text))
-                        .prepend($(this)));
-                  });
+                if (barzacont < 5) {
+                    barzacont++
+                    $('<img />')
+                      .attr('src', data.avatar)
+                      .load(function(){
+                          barcelonarsList
+                            .prepend($('<li>')
+                            .prepend($('<p>').text(data.user + ': ' + data.text))
+                            .prepend($(this)));
+                      });
+                } 
             });
         });
     </script>
