@@ -40,7 +40,15 @@
                         <p>data.text</p>
                     </a>
                 </li>
+                <li>
+                    <a href="#">
+                        <img src="data.avatar">
+                        <h2>data.user</h2>
+                        <p>data.text</p>
+                    </a>
+                </li>
             </ul>
+            <ul id="madridrs" data-role="listview"></ul>
             <br />
             <br />
             <br />
@@ -68,9 +76,9 @@
             </div><!-- /navbar -->
         </div>
         <div data-role="panel" id="panell" style="background-image:url(images/bg.png); background-position:right; background-size:cover" data-display="reveal" data-position="left">
-            <section id="madridrs">
+            <section >
                 <h2>#HalaMadrid</h2>
-                <ul data-role="listview"></ul>
+                <ul id="madridrs" data-role="listview"></ul>
             </section>
             <button class="ui-btn" id="btn_1" style="background-color:limegreen; color:black; text-shadow:none">More Tweets!</button>
         </div>
@@ -94,7 +102,7 @@
         jQuery(function ($) {
             var barzacont = 0,
                 madriscont = 0,
-                madridrsList = $('#madridrs ul'),
+                madridrsList = $('#madridrs'),
                 barcelonarsList = $('#barcelonars ul');
 
 
@@ -121,7 +129,7 @@
                             $('#barza h1').text(Math.round(data.barcelona * 10) / 10 + '%')
                             $('#slider-12').val(Math.round(data.madrid * 10) / 10);
                             $('#slider-12').slider('refresh');
-                            //alert(Math.round(data.madrid * 10) / 10)
+                            //malert(Math.round(data.madrid * 10) / 10)
                 });
            
 
@@ -133,8 +141,12 @@
                       .load(function(){
                           madridrsList
                           .prepend($('<li>') 
-                          .prepend($('<p style="text-wrap:normal">').text(data.user + ': ' + data.text))
-                          .prepend($(this)));
+                          .prepend($('<a href="#">')  
+                         //  madridrsList
+                         // .prepend($('<a href="#"> ')  
+                          .prepend($('<p style="text-wrap:normal">').text(data.text))  
+                          .prepend($('<h2>').text(data.user))                            
+                          .prepend($(this))));
                       });
                 }  
             });
