@@ -9,7 +9,7 @@
 
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, maximun-scale=1, height=device-height, user-scalable=false">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, maximun-scale=1, height=device-height *2, user-scalable=false">
 
     <!--
         Customize the content security policy in the meta tag below as needed. Add 'unsafe-inline' to default-src to enable inline JavaScript.
@@ -48,7 +48,6 @@
                     </a>
                 </li>
             </ul>
-            <ul id="madridrs" data-role="listview"></ul>
             <br />
             <br />
             <br />
@@ -64,7 +63,7 @@
                         <input name="slider-12" id="slider-12" type="range" min="0" max="100" value="40" data-highlight="true">
                     </form>
                 </div>
-            </div>        
+            </div>
         </div>
         <div data-role="footer" style="overflow:hidden" data-position="fixed">
             <div data-role="navbar">
@@ -76,10 +75,12 @@
             </div><!-- /navbar -->
         </div>
         <div data-role="panel" id="panell" style="background-image:url(images/bg.png); background-position:right; background-size:cover" data-display="reveal" data-position="left">
-            <section >
-                <h2>#HalaMadrid</h2>
-                <ul id="madridrs" data-role="listview"></ul>
-            </section>
+            <h2>#HalaMadrid</h2>
+            <ul data-role="listview" id="madridrs">
+                <li>
+
+                </li>
+            </ul>
             <button class="ui-btn" id="btn_1" style="background-color:limegreen; color:black; text-shadow:none">More Tweets!</button>
         </div>
         <div data-role="panel" id="panelr" style="background-image:url(images/bg.png); background-position:left; background-size:cover; background-color:red" data-display="reveal" data-position="right">
@@ -92,7 +93,7 @@
         <div id="poptweet" data-role="popup" data-overlay-theme="b" data-dismissible="false">
             <a class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-left" href="#" data-rel="back">Close</a>
             <p>ola k ase soy un tweet ¿proximamente?</p>
-            
+
         </div>
 
     </div>
@@ -106,32 +107,32 @@
                 barcelonarsList = $('#barcelonars ul');
 
 
-           
-                $("#btn_1").click(function(event) {
-                    $(madridrsList).empty();
-                    madriscont = 0;
-                });
-                $("#btn_2").click(function(event) {
-                    $(barcelonarsList).empty();
-                    barzacont = 0;
-                });
-           
-                socket.on('percentages', function (data) {
-                          //madridCounter
-                          //  .css("width", data.madrid + '%');
-                          //madridCounterPercentage
-                           // .text(Math.round(data.madrid * 10) / 10 + '%');
-                          //barcelonaCounter
-                          //  .css("width", data.barcelona + '%');
-                          //barcelonaCounterPercentage
-                            //.text(Math.round(data.barcelona * 10) / 10 + '%');
-                            $('#madrid h1').text(Math.round(data.madrid * 10) / 10 + '%')
-                            $('#barza h1').text(Math.round(data.barcelona * 10) / 10 + '%')
-                            $('#slider-12').val(Math.round(data.madrid * 10) / 10);
-                            $('#slider-12').slider('refresh');
-                            //malert(Math.round(data.madrid * 10) / 10)
-                });
-           
+
+            $("#btn_1").click(function(event) {
+                $(madridrsList).empty();
+                madriscont = 0;
+            });
+            $("#btn_2").click(function(event) {
+                $(barcelonarsList).empty();
+                barzacont = 0;
+            });
+
+            socket.on('percentages', function (data) {
+                //madridCounter
+                //  .css("width", data.madrid + '%');
+                //madridCounterPercentage
+                // .text(Math.round(data.madrid * 10) / 10 + '%');
+                //barcelonaCounter
+                //  .css("width", data.barcelona + '%');
+                //barcelonaCounterPercentage
+                //.text(Math.round(data.barcelona * 10) / 10 + '%');
+                $('#madrid h1').text(Math.round(data.madrid * 10) / 10 + '%')
+                $('#barza h1').text(Math.round(data.barcelona * 10) / 10 + '%')
+                $('#slider-12').val(Math.round(data.madrid * 10) / 10);
+                $('#slider-12').slider('refresh');
+                //malert(Math.round(data.madrid * 10) / 10)
+            });
+
 
             socket.on('madridr', function (data) {
                 if (madriscont < 5) {
@@ -140,15 +141,13 @@
                       .attr('src', data.avatar)
                       .load(function(){
                           madridrsList
-                          .prepend($('<li>') 
-                          .prepend($('<a href="#">')  
-                         //  madridrsList
-                         // .prepend($('<a href="#"> ')  
-                          .prepend($('<p style="text-wrap:normal">').text(data.text))  
-                          .prepend($('<h2>').text(data.user))                            
+                          .prepend($('<a href="#">')
+                          .prepend($('<img />').attr('src', data.avatar)
+                          .prepend($('<h2>').text(data.user))
+                          .prepend($('<p style="text-wrap:normal">').text(data.text))
                           .prepend($(this))));
                       });
-                }  
+                }
             });
             socket.on('barcelonar', function (data) {
                 if (barzacont < 5) {
@@ -161,7 +160,7 @@
                             .prepend($('<p>').text(data.user + ': ' + data.text))
                             .prepend($(this)));
                       });
-                } 
+                }
             });
         });
     </script>
